@@ -1,0 +1,6 @@
+@LotApi_HostAddress = http://localhost:5070
+
+GET {{LotApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
