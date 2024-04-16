@@ -5,7 +5,7 @@ namespace LotApi.Controllers
 {
 
     [ApiController]
-    [Route("api/stock")]
+    [Route("api/flights")]
     public class FlightController : ControllerBase
     {
         private readonly DataContext _dataContext;
