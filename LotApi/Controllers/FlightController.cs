@@ -43,7 +43,7 @@ namespace LotApi.Controllers
             var flightModel = flightDto.ToFlightFromCreateDto();
             _dataContext.Flight.Add(flightModel);
             _dataContext.SaveChanges();
-            return CreatedAtAction(nameof(GetById), new { id = flightModel.Id }, flightModel.ToFlightDto());
+            return CreatedAtAction(nameof(GetById), new { id = flightModel.Id }, flightModel);
         }
 
         [HttpPut]
@@ -59,8 +59,8 @@ namespace LotApi.Controllers
 
             flightModel.FlightNumber = updateDto.FlightNumber;
             flightModel.DepartureDate = updateDto.DepartureDate;    
-            flightModel.DepartureLocation = null;
-            flightModel.ArrivalLocation = null;
+            flightModel.DepartureLocation = updateDto.DepartureLocation;
+            flightModel.ArrivalLocation = updateDto.ArrivalLocation;
             flightModel.AircraftType = updateDto.AircraftType;
 
             _dataContext.SaveChanges();
