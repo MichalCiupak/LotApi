@@ -21,8 +21,7 @@ namespace LotApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var flights = _dataContext.Flight.ToList()
-            .Select(f => f.ToFlightDto());
+            var flights = _dataContext.Flight.ToList();
             return Ok(flights);
         }
 
@@ -35,7 +34,7 @@ namespace LotApi.Controllers
             {
                 return NotFound();
             }
-            return Ok(flight.ToFlightDto());
+            return Ok(flight);
         }
 
         [HttpPost]
@@ -46,6 +45,29 @@ namespace LotApi.Controllers
             _dataContext.SaveChanges();
             return CreatedAtAction(nameof(GetById), new { id = flightModel.Id }, flightModel.ToFlightDto());
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Update(int id, [FromBody] UpdateFlightRequestDto updateDto)
+        {
+            var flightModel = _dataContext.Flight.FirstOrDefault(x => x.Id == id);
+
+            if (flightModel == null)
+            {
+                return NotFound();  
+            }
+
+            flightModel.FlightNumber = updateDto.FlightNumber;
+            flightModel.DepartureDate = updateDto.DepartureDate;    
+            flightModel.DepartureLocation = null;
+            flightModel.ArrivalLocation = null;
+            flightModel.AircraftType = updateDto.AircraftType;
+
+            _dataContext.SaveChanges();
+
+            return Ok(flightModel);
+        }
+
 
     }
 }
