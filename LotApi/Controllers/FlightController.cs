@@ -1,5 +1,8 @@
 using LotApi.Data;
 using Microsoft.AspNetCore.Mvc;
+using LotApi.Mappers;
+using LotApi.Dto;
+
 
 namespace LotApi.Controllers
 {
@@ -18,7 +21,8 @@ namespace LotApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var flights = _dataContext.Flight.ToList();
+            var flights = _dataContext.Flight.ToList()
+            .Select(f => f.ToFlightDto());
             return Ok(flights);
         }
 
@@ -31,31 +35,17 @@ namespace LotApi.Controllers
             {
                 return NotFound();
             }
-            return Ok(flight);
+            return Ok(flight.ToFlightDto());
         }
 
-        /*private static readonly string[] Summaries = new[]
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateFlightRequestDto flightDto)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
+            var flightModel = flightDto.ToFlightFromCreateDto();
+            _dataContext.Flight.Add(flightModel);
+            _dataContext.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { id = flightModel.Id }, flightModel.ToFlightDto());
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }*/
     }
 }
