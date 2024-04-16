@@ -68,6 +68,24 @@ namespace LotApi.Controllers
             return Ok(flightModel);
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var flightModel = _dataContext.Flight.FirstOrDefault(x => x.Id == id);
+
+            if (flightModel == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Flight.Remove(flightModel);
+
+            _dataContext.SaveChanges();
+
+            return NoContent();
+        }
+
 
     }
 }
