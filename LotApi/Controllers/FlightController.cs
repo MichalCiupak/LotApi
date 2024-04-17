@@ -2,12 +2,12 @@ using LotApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using LotApi.Mappers;
 using LotApi.Dto;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace LotApi.Controllers
 {
 
-    [ApiController]
+    [ApiController, Authorize]
     [Route("api/flights")]
     public class FlightController : ControllerBase
     {
