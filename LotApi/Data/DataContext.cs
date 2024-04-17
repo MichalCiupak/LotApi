@@ -27,5 +27,6 @@ namespace LotApi.Data
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Flight> Flight { get; set; }
+        public DbSet<UserData> UserData { get; set; }
     }
 }
