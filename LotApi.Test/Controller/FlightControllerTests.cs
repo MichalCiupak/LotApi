@@ -19,6 +19,14 @@ namespace LotApi.Test.Controller
     public class FlightControllerTests 
     {
 
+        private readonly DbContextOptions<DataContext> _dbContextOptions;
+        public FlightControllerTests() 
+        {
+            _dbContextOptions = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: "TestDatabase")
+            .Options;
+        }  
+
         [Fact]
         public void FlightController_GetAll_ReturnOk()
         {
@@ -28,11 +36,8 @@ namespace LotApi.Test.Controller
                  new Flight { Id = 2, FlightNumber = "XYZ789", DepartureDate = new DateTime(2024, 4, 18), DepartureLocation = "London", ArrivalLocation = "Paris", AircraftType = "Airbus A320" }
              }.AsQueryable();
 
-            var dbContextOptions = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "TestDatabase")
-            .Options;
 
-            var mockDataContext = new DataContext(dbContextOptions);
+            var mockDataContext = new DataContext(_dbContextOptions);
 
             mockDataContext.Flight = MockDbSet(flightsData);
 
@@ -64,11 +69,7 @@ namespace LotApi.Test.Controller
                 new Flight { Id = 2, FlightNumber = "XYZ789", DepartureDate = new DateTime(2024, 4, 18), DepartureLocation = "London", ArrivalLocation = "Paris", AircraftType = "Airbus A320" }
             }.AsQueryable();
 
-            var dbContextOptions = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "TestDatabase")
-            .Options;
-
-            var mockDataContext = new DataContext(dbContextOptions);
+            var mockDataContext = new DataContext(_dbContextOptions);
 
             mockDataContext.Flight = MockDbSet(flightsData);
 
@@ -88,14 +89,10 @@ namespace LotApi.Test.Controller
             Assert.Equal("Boeing 737", flight.AircraftType);
         }
         [Fact]
-        public void FlightController_create_ReturnOk()
+        public void FlightController_Create_ReturnOk()
         {
 
-            var dbContextOptions = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "TestDatabase")
-            .Options;
-
-            var mockDataContext = new DataContext(dbContextOptions);
+            var mockDataContext = new DataContext(_dbContextOptions);
             var flightDto = new CreateFlightRequestDto
             {
                 FlightNumber = "ABC123",
@@ -120,7 +117,7 @@ namespace LotApi.Test.Controller
         }
 
         [Fact]
-        public void FlightController_delete_ReturnOk()
+        public void FlightController_Delete_ReturnOk()
         {
             var flightsData = new List<Flight>
             {
@@ -128,11 +125,8 @@ namespace LotApi.Test.Controller
                 new Flight { Id = 2, FlightNumber = "XYZ789", DepartureDate = new DateTime(2024, 4, 18), DepartureLocation = "London", ArrivalLocation = "Paris", AircraftType = "Airbus A320" }
             }.AsQueryable();
 
-            var dbContextOptions = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "TestDatabase")
-            .Options;
 
-            var mockDataContext = new DataContext(dbContextOptions);
+            var mockDataContext = new DataContext(_dbContextOptions);
 
             mockDataContext.Flight = MockDbSet(flightsData);
 
@@ -145,7 +139,7 @@ namespace LotApi.Test.Controller
         }
 
         [Fact]
-        public void FlightController_update_ReturnOk()
+        public void FlightController_Update_ReturnOk()
         {
             var flightsData = new List<Flight>
             {
@@ -153,11 +147,7 @@ namespace LotApi.Test.Controller
                 new Flight { Id = 2, FlightNumber = "XYZ789", DepartureDate = new DateTime(2024, 4, 18), DepartureLocation = "London", ArrivalLocation = "Paris", AircraftType = "Airbus A320" }
             }.AsQueryable();
 
-            var dbContextOptions = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "TestDatabase")
-            .Options;
-
-            var mockDataContext = new DataContext(dbContextOptions);
+            var mockDataContext = new DataContext(_dbContextOptions);
 
             mockDataContext.Flight = MockDbSet(flightsData);
 
@@ -184,9 +174,6 @@ namespace LotApi.Test.Controller
             Assert.Equal("Berlin", updatedFlight.DepartureLocation);
             Assert.Equal("Madrid", updatedFlight.ArrivalLocation);
             Assert.Equal("Boeing 747", updatedFlight.AircraftType);
-
-
-
         }
 
         private static DbSet<Flight> MockDbSet(IQueryable<Flight> data)
@@ -198,5 +185,7 @@ namespace LotApi.Test.Controller
             mockSet.As<IQueryable<Flight>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
             return mockSet.Object;
         }
+
+
     }
 }
