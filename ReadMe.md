@@ -13,4 +13,4 @@ You can access the API using Swagger, which provides a user-friendly interface f
 
 1. Use the register method to register a user.
 2. Use the login method to obtain a token.
-3. Authorize the user by typing "Bearer \<Token\>" in the authorization window.
+3. Authorize the user by typing "bearer \<Token\>" in the authorization window.
