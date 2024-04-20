@@ -21,14 +21,14 @@ namespace LotApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var flights = _dataContext.Flight.ToList();
+            var flights = _dataContext.Flight;
             return Ok(flights);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById([FromRoute] int id)
         {
-            var flight = _dataContext.Flight.Find(id);
+            var flight = _dataContext.Flight.FirstOrDefault(x => x.Id == id);
 
             if(flight == null)
             {

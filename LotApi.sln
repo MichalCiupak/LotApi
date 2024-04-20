@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotApi", "LotApi\LotApi.csproj", "{B10B0238-D912-430D-A76A-87ACAE5040A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LotApi", "LotApi\LotApi.csproj", "{B10B0238-D912-430D-A76A-87ACAE5040A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotApi.Test", "LotApi.Test\LotApi.Test.csproj", "{502DF04C-3994-4D21-BF96-0EB25471DA10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B10B0238-D912-430D-A76A-87ACAE5040A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B10B0238-D912-430D-A76A-87ACAE5040A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B10B0238-D912-430D-A76A-87ACAE5040A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{502DF04C-3994-4D21-BF96-0EB25471DA10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{502DF04C-3994-4D21-BF96-0EB25471DA10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{502DF04C-3994-4D21-BF96-0EB25471DA10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{502DF04C-3994-4D21-BF96-0EB25471DA10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
